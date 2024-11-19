@@ -1,0 +1,52 @@
+{
+  "name": "phantom-request",
+  "version": "1.0.0",
+  "description": "HTTP/HTTPS requests made easier",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.mjs"
+  },
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "test": "echo \"No tests yet\"",
+    "release": "standard-version"
+  },
+  "keywords": [
+    "https",
+    "axios",
+    "react",
+    "cookies"
+  ],
+  "author": "dev-phantom",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-phantom/phantom-request.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dev-phantom/phantom-request/issues"
+  },
+  "homepage": "https://github.com/dev-phantom/phantom-request#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "js-cookie": "^3.0.5"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@swc/core": "^1.9.2",
+    "@types/js-cookie": "^3.0.6",
+    "@types/react": "^18.3.12",
+    "husky": "^9.1.7",
+    "standard-version": "^9.5.0",
+    "tsup": "^7.0.0",
+    "typescript": "^5.6.3"
+  }
+}
