@@ -1,10 +1,11 @@
-import { phantomGet, logout } from 'phantom-request';
+import { phantomGet, logout, logoutRedirect  } from "phantom-request"  
+
 function App() {
 
   
-  const { data, loading, error } = useAxiosGet({
+  const { data, loading, error } = phantomGet({
     baseURL: "http://localhost:3000/",
-    route: "customers",
+    route: "product",
     // token: "your-auth-token", // Optional
     onUnauthorized: () => logout, // Optional
     // initialState: null, // Optional, default is `null`
