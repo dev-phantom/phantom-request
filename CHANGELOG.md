@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/dev-phantom/phantom-request/compare/v1.1.0...v1.2.0) (2024-11-20)
+
+
+### Features
+
+* added phantom patch request ([d5d7a80](https://github.com/dev-phantom/phantom-request/commit/d5d7a803a585a113d2e02807a38e048a35713dbe))
+
 ## 1.1.0 (2024-11-20)
 
 
