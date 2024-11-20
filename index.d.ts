@@ -37,6 +37,7 @@ export interface UseAxiosPostResult<R> {
 }
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
+  cloud_route?: string;
   upload_preset: string;
 }
 
@@ -61,3 +62,36 @@ export interface UseAxiosPostOptions<R> {
 export function useAxiosPost<R>(
   options: UseAxiosPostOptions<R>
 ): UseAxiosPostResult<R>;
+
+// Result type for the useAxiosPatch hook
+export interface UseAxiosPatchResult<R> {
+  response: R | null; // Response data from the POST request
+  error: any; // Error details, if any
+  loading: boolean; // Loading state
+  patch: (data: any) => void; // Function to trigger the POST request with payload
+  latestData?: R | null; // get lastest data if specified
+}
+
+
+// Options for configuring the useAxiosPost hook
+export interface UseAxiosPatchOptions<R> {
+  baseURL: string; // Base URL for the API
+  route: string; // API route for the POST request
+  token?: string; // Optional authorization token
+  onUnauthorized?: () => void; // Callback when 401 Unauthorized is encountered
+  initialState?: R | null; // Initial state for the response data
+  headers?: Record<string, string>; // Additional headers
+  contentType?:
+    | "application/json"
+    | "multipart/form-data"
+    | "application/x-www-form-urlencoded"; // Content-Type for the request
+  axiosOptions?: AxiosRequestConfig; // Additional Axios configuration options
+  cloudinaryUpload?: CloudinaryUploadOptions;
+  getLatestData?: string; // New parameter for fetching latest data
+  id?: string;
+}
+
+// Hook function definition for useAxiosPost
+export function useAxiosPatch<R>(
+  options: UseAxiosPatchOptions<R>
+): UseAxiosPatchResult<R>;
