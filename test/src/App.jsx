@@ -1,16 +1,16 @@
-import { phantomPut } from "phantom-request"; // Import the hook
+import { phantomPatch } from "phantom-request"; // Import the hook
 
 function App() {
-  const { put, loading, error, response } = phantomPut({
+  const { patch, loading, error, response } = phantomPatch({
     baseURL: "http://localhost:3000/", // Base URL for your API
     route: "driver/update", // The API route for the PATCH request
+    id: "673d31b498e6ebb73305e6fd",
+    getLatestData: "driver", // Will refetch this data after the PATCH request
   });
 
   const handlePatch = () => {
-    put({
-      first_name: "bam mn", // The data you want to patch
-      id: "673d31b498e6ebb73305e6fd",
-
+    patch({
+      first_name: "phantom", // The data you want to patch
     });
   };
 
