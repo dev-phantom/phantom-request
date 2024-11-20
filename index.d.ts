@@ -35,6 +35,10 @@ declare module "phantom-request" {
     loading: boolean; // Loading state
     post: (data: any) => void; // Function to trigger the POST request with payload
   }
+  interface CloudinaryUploadOptions {
+    cloud_base_url: string;
+    upload_preset: string;
+  }
 
   // Options for configuring the useAxiosPost hook
   export interface UseAxiosPostOptions<R> {
@@ -49,6 +53,7 @@ declare module "phantom-request" {
       | "multipart/form-data"
       | "application/x-www-form-urlencoded"; // Content-Type for the request
     axiosOptions?: AxiosRequestConfig; // Additional Axios configuration options
+    cloudinaryUpload?: CloudinaryUploadOptions; 
   }
 
   // Hook function definition for useAxiosPost

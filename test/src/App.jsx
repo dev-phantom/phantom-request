@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { phantomPost } from "phantom-request"; // Import the hook
 
@@ -9,19 +8,23 @@ const App = () => {
   const { response, error, loading, post } = phantomPost({
     baseURL: "http://localhost:3000/",
     route: "driver/create",
-    token: "your-auth-token",
-    contentType: "multipart/form-data", // Set content type for file upload
+    cloudinaryUpload: {
+      cloud_base_url: "https://api.cloudinary.com/v1_1/your_username",
+      upload_preset: "your upload preset e.g h2bjt9bc",
+    },
   });
 
   const handleUpload = () => {
     const file = fileInputRef.current?.files?.[0]; // Access the file from the ref
-    if (file) {
-      const formData = new FormData();
-      formData.append("first_name", "Fred"); // Append first name
-      formData.append("last_name", "Flintstone"); // Append last name
-      formData.append("image", file); // Append the file
 
-      post(formData); // Send the FormData directly
+    if (file) {
+      const data = {
+        first_name: "phantom", // Add first name
+        last_name: "Flintstone", // Add last name
+        image: { value: file, CloudinaryImage: true }, // Tag the image for Cloudinary upload
+      };
+
+      post(data); // Send the data object with tagged image
     } else {
       setErrorMessage("Please select a file before uploading.");
     }
