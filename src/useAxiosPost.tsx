@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
+import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -50,29 +51,7 @@ export function useAxiosPost<R>({
     // Add content type
     requestHeaders.set("Content-Type", contentType);
     return requestHeaders;
-  };
-
-  const uploadToCloudinary = async (image: File | string): Promise<string> => {
-    if (!cloudinaryUpload) {
-      throw new Error("Cloudinary upload options are not provided.");
-    }
-  
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", cloudinaryUpload.upload_preset);
-  
-    // Ensure the URL is formed correctly
-    const res = await axios.post(
-      `${cloudinaryUpload.cloud_base_url}${cloudinaryUpload.cloud_route || '/image/upload'}`, 
-      formData, 
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
-  
-    return res.data.secure_url; // Return the uploaded image's URL
-  };
-  
+  };  
 
   const processRequestData = async (data: Record<string, any>): Promise<Record<string, any>> => {
     if (!cloudinaryUpload) return data;
@@ -84,7 +63,7 @@ export function useAxiosPost<R>({
 
       // Check if the field is tagged for Cloudinary upload
       if (field && typeof field === "object" && field.CloudinaryImage && field.value) {
-        processedData[key] = await uploadToCloudinary(field.value);
+        processedData[key] = await uploadToCloudinary(field.value, cloudinaryUpload);
       }
     }
 

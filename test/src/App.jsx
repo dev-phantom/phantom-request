@@ -10,13 +10,13 @@ const App = () => {
     route: "driver/create",
     cloudinaryUpload: {
       cloud_base_url: "https://api.cloudinary.com/v1_1/your_username",
+      cloud_route: "/upload", 
       upload_preset: "your upload preset e.g h2bjt9bc",
     },
   });
 
   const handleUpload = () => {
     const file = fileInputRef.current?.files?.[0]; // Access the file from the ref
-
     if (file) {
       const data = {
         first_name: "phantom", // Add first name
