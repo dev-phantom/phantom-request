@@ -31,17 +31,25 @@ yarn add phantom-request
 
 ### Making Requests
 
-You can use `useAxiosGet` to perform API requests without needing to manually manage `useEffect` for fetching data. Here’s an example:
+You can use `phantomGet` to perform API requests without needing to manually manage `useEffect` for fetching data. Here’s an example:
 
 ```tsx
 import React from "react";
-import { useAxiosGet } from "phantom-request";
+import { phantomGet } from "phantom-request";
+import { logout, logoutRedirect } from "phantom-request";
 
 function App() {
-  const { data, loading, error } = useAxiosGet({
+  const { data, loading, error } = phantomGet({
     baseURL: "http://localhost:3000/",
     route: "customers",
-    onUnauthorized: () => console.log("Unauthorized, logging out..."), // Optional
+    // token: "your-auth-token", // Optional
+    onUnauthorized: logout, // Clear local storage and cookies
+    // initialState: null, // Optional, default is `null`
+    // params: { page: 3, limit: 20 }, // Optional query parameters
+    // restHeader: { "X-Custom-Header": "CustomValue" }, // Optional headers
+    // asyncAwait: true, // Optional, default is `true`
+    // restOptions: { timeout: 5000 }, // Optional Axios config
+    // fetchOnMount: true, // Optional, default is `true`
   });
 
   if (loading) return <div>Loading...</div>;
@@ -59,10 +67,10 @@ You can trigger a manual refetch using the `refetch` method:
 
 ```tsx
 import React from "react";
-import { useAxiosGet } from "phantom-request";
+import { phantomGet } from "phantom-request";
 
 function App() {
-  const { data, loading, error, refetch } = useAxiosGet({
+  const { data, loading, error, refetch } = phantomGet({
     baseURL: "http://localhost:3000/",
     route: "product",
     fetchOnMount: true, // Automatically fetches data on mount
@@ -97,7 +105,7 @@ export default App;
 
 ## API
 
-### `useAxiosGet`
+### `phantomGet`
 
 #### Parameters
 
@@ -133,10 +141,10 @@ If you prefer to add `useEffect` manually for more complex behaviors, you can st
 
 ```tsx
 import React, { useEffect } from "react";
-import { useAxiosGet } from "phantom-request";
+import { phantomGet } from "phantom-request";
 
 function App() {
-  const { data, loading, error, refetch } = useAxiosGet({
+  const { data, loading, error, refetch } = phantomGet({
     baseURL: "http://localhost:3000/",
     route: "product",
     fetchOnMount: false, // Control when to fetch data

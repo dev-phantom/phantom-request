@@ -10,7 +10,10 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
-    "skipLibCheck": true 
+    "skipLibCheck": true ,
+    "paths": {
+      "phantom-request": ["./index.d.ts"] // Path to your type definitions
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

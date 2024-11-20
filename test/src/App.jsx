@@ -1,25 +1,24 @@
-import { phantomGet, logout, logoutRedirect  } from "phantom-request"  
+import { phantomPost } from "phantom-request"; // Import the hook
 
 function App() {
-
-  
-  const { data, loading, error } = phantomGet({
+  const { post, latestData, loading, error } = phantomPost({
     baseURL: "http://localhost:3000/",
-    route: "product",
-    // token: "your-auth-token", // Optional
-    onUnauthorized: () => logout, // Optional
-    // initialState: null, // Optional, default is `null`
-    // params: { page: 3, limit: 20 }, // Optional query parameters
-    // restHeader: { "X-Custom-Header": "CustomValue" }, // Optional headers
-    // asyncAwait: true, // Optional, default is `true`
-    // restOptions: { timeout: 5000 }, // Optional Axios config
-    // fetchOnMount: true, // Optional, default is `true`
+    route: "driver/create",
+    getLatestData: "driver", // Will refetch this after post
   });
-  
-  if(!loading) console.log(data)
-  if(error) console.log(error)
-  
 
+  return (
+    <div>
+      <button onClick={() => post({
+        first_name: "phantom", // Add first name
+        last_name: "oghena", // Add last name
+      })}>Create Product</button>
+
+      {loading && <p>Posting...</p>}
+      {error && <p>Error: {error.message}</p>}
+      {latestData && <pre>{JSON.stringify(latestData, null, 2)}</pre>}
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -1,2 +1,3 @@
 export { useAxiosGet as phantomGet } from './src/useAxiosGet';
-export { logout, logoutRedirect } from './src/logout'
+export { useAxiosPost as phantomPost } from './src/useAxiosPost';
+export { logout, logoutRedirect } from './src/logout';

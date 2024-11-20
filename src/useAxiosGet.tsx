@@ -44,7 +44,9 @@ export function useAxiosGet<T>({
     const headers = new AxiosHeaders();
     if (token) headers.set("Authorization", `Bearer ${token}`);
     if (restHeader) {
-      Object.entries(restHeader).forEach(([key, value]) => headers.set(key, value));
+      Object.entries(restHeader).forEach(([key, value]) =>
+        headers.set(key, value)
+      );
     }
 
     const axiosOptions: AxiosRequestConfig = {
