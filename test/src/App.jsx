@@ -5,11 +5,12 @@ function App() {
     baseURL: "http://localhost:3000/", // Base URL for your API
     route: "driver/update", // The API route for the PATCH request
     id: "673d31b498e6ebb73305e6fd",
+    getLatestData: "driver", // Will refetch this data after the PATCH request
   });
 
   const handlePatch = () => {
     patch({
-      first_name: "bahubali", // The data you want to patch
+      first_name: "phantom", // The data you want to patch
     });
   };
 
