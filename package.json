@@ -4,11 +4,12 @@
   "description": "HTTP/HTTPS requests made easier",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     "require": "./dist/index.cjs",
-    "import": "./dist/index.mjs"
+    "import": "./dist/index.mjs",
+    "types": "./dist/index.d.ts"
   },
-  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
     "build": "tsup",
