@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.3](https://github.com/dev-phantom/phantom-request/compare/v1.3.2...v1.3.3) (2024-11-21)
+
+
+### Bug Fixes
+
+* removed the dist and test folder ([35922de](https://github.com/dev-phantom/phantom-request/commit/35922de52fe5f5776f14d6f1f9c3f325418b522c))
+
 ### [1.3.2](https://github.com/dev-phantom/phantom-request/compare/v1.3.1...v1.3.2) (2024-11-21)
 
 
