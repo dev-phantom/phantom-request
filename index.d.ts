@@ -22,10 +22,8 @@ export interface UseAxiosGetOptions<T> {
   fetchOnMount?: boolean; // Whether to fetch data on component mount
 }
 
-// Hook function definition for useAxiosGet
-export default function useAxiosGet<T>(
-  options: UseAxiosGetOptions<T>
-): UseAxiosGetResult<T>;
+// Alias for the useAxiosGet hook
+export type phantomGet<T> = (options: UseAxiosGetOptions<T>) => UseAxiosGetResult<T>;
 
 // Result type for the useAxiosPost hook
 export interface UseAxiosPostResult<R> {
@@ -35,6 +33,7 @@ export interface UseAxiosPostResult<R> {
   post: (data: any) => void; // Function to trigger the POST request with payload
   latestData?: R | null; // get lastest data if specified
 }
+
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
   cloud_route?: string;
@@ -58,10 +57,8 @@ export interface UseAxiosPostOptions<R> {
   getLatestData?: string; // New parameter for fetching latest data
 }
 
-// Hook function definition for useAxiosPost
-export function useAxiosPost<R>(
-  options: UseAxiosPostOptions<R>
-): UseAxiosPostResult<R>;
+// Alias for the useAxiosPost hook
+export type phantomPost<R> = (options: UseAxiosPostOptions<R>) => UseAxiosPostResult<R>;
 
 // Result type for the useAxiosPatch hook
 export interface UseAxiosPatchResult<R> {
@@ -72,8 +69,7 @@ export interface UseAxiosPatchResult<R> {
   latestData?: R | null; // get lastest data if specified
 }
 
-
-// Options for configuring the useAxiosPost hook
+// Options for configuring the useAxiosPatch hook
 export interface UseAxiosPatchOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
@@ -91,7 +87,61 @@ export interface UseAxiosPatchOptions<R> {
   id?: string;
 }
 
-// Hook function definition for useAxiosPost
-export function useAxiosPatch<R>(
-  options: UseAxiosPatchOptions<R>
-): UseAxiosPatchResult<R>;
+// Alias for the useAxiosPatch hook
+export type phantomPatch<R> = (options: UseAxiosPatchOptions<R>) => UseAxiosPatchResult<R>;
+
+// Result type for the useAxiosPut hook
+export interface UseAxiosPutResult<R> {
+  response: R | null; // Response data from the POST request
+  error: any; // Error details, if any
+  loading: boolean; // Loading state
+  put: (data: any) => void; // Function to trigger the POST request with payload
+  latestData?: R | null; // get lastest data if specified
+}
+
+// Options for configuring the useAxiosPut hook
+export interface UseAxiosPutOptions<R> {
+  baseURL: string; // Base URL for the API
+  route: string; // API route for the POST request
+  token?: string; // Optional authorization token
+  onUnauthorized?: () => void; // Callback when 401 Unauthorized is encountered
+  initialState?: R | null; // Initial state for the response data
+  headers?: Record<string, string>; // Additional headers
+  contentType?:
+    | "application/json"
+    | "multipart/form-data"
+    | "application/x-www-form-urlencoded"; // Content-Type for the request
+  axiosOptions?: AxiosRequestConfig; // Additional Axios configuration options
+  cloudinaryUpload?: CloudinaryUploadOptions;
+  getLatestData?: string; // New parameter for fetching latest data
+  id?: string;
+}
+
+// Alias for the useAxiosPut hook
+export type phantomPut<R> = (options: UseAxiosPutOptions<R>) => UseAxiosPutResult<R>;
+
+
+interface UseAxiosDeleteOptions<R> {
+  baseURL: string;
+  route: string;
+  id?: string; // Optional ID for dynamic routing
+  token?: string;
+  onUnauthorized?: () => void;
+  initialState?: R | null;
+  headers?: Record<string, string>;
+  axiosOptions?: AxiosRequestConfig;
+  getLatestData?: string; // Optional route for fetching the latest data
+}
+
+interface UseAxiosDeleteResult<R> {
+  response: R | null;
+  error: any;
+  loading: boolean;
+  deleteRequest: (options?: {
+    id?: string;
+    body?: Record<string, any>;
+  }) => void;
+  latestData?: R | null;
+}
+
+export type phantomDelete<R> = (options: UseAxiosDeleteOptions<R>) => UseAxiosDeleteResult<R>;

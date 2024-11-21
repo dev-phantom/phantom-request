@@ -9,10 +9,10 @@
     "strict": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "./dist",
+    "esModuleInterop": true,
     "skipLibCheck": true ,
     "paths": {
-      "phantom-request": ["./index.d.ts"] // Path to your type definitions
+      "phantom-request": ["./dist/index.d.ts"] // Path to your type definitions
     }
   },
   "exclude": ["node_modules", "dist"]

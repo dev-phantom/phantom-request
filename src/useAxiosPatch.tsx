@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
-import { useAxiosGet } from "./useAxiosGet";
+import { phantomGet } from "./useAxiosGet";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -34,7 +34,7 @@ interface UseAxiosPatchResult<R> {
   latestData?: R | null;
 }
 
-export function useAxiosPatch<R>({
+export function phantomPatch<R>({
   baseURL,
   route,
   id, // Optional id
@@ -57,7 +57,7 @@ export function useAxiosPatch<R>({
     loading: dataLoading,
     error: err,
     refetch,
-  } = useAxiosGet<R>({
+  } = phantomGet<R>({
     baseURL,
     route: getLatestData || "",
     fetchOnMount: false,

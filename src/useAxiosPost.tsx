@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
-import { useAxiosGet } from "./useAxiosGet";
+import { phantomGet } from "./useAxiosGet";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -33,7 +33,7 @@ interface UseAxiosPostResult<R> {
   latestData?: R | null; // To store the fetched latest data
 }
 
-export function useAxiosPost<R>({
+export function phantomPost<R>({
   baseURL,
   route,
   token,
@@ -56,7 +56,7 @@ export function useAxiosPost<R>({
     loading: dataLoading,
     error: err,
     refetch,
-  } = useAxiosGet<R>({
+  } = phantomGet<R>({
     baseURL,
     route: getLatestData || "", // Pass getLatestData only when available
     fetchOnMount: false, // Ensure it does not run on component mount

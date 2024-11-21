@@ -21,7 +21,7 @@ interface UseAxiosGetResult<T> {
   refetch: () => void; // Manual refetch option
 }
 
-export function useAxiosGet<T>({
+export function phantomGet<T>({
   baseURL,
   route,
   token,
