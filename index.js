@@ -1,6 +1,6 @@
-export { phantomGet } from "./src/useAxiosGet";
-export { phantomPost } from "./src/useAxiosPost";
-export { phantomPatch } from "./src/useAxiosPatch";
-export { phantomPut } from "./src/useAxiosPut";
-export { phantomDelete } from "./src/useAxiosDelete";
+export { phantomGet } from "./src/phantomGet";
+export { phantomPost } from "./src/phantomPost";
+export { phantomPatch } from "./src/phantomPatch";
+export { phantomPut } from "./src/phantomPut";
+export { phantomDelete } from "./src/phantomDelete";
 export { logout, logoutRedirect } from "./src/logout";

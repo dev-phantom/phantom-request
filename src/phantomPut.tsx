@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
-import { phantomGet } from "./useAxiosGet";
+import { phantomGet } from "./phantomGet";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -9,7 +9,7 @@ interface CloudinaryUploadOptions {
   upload_preset: string;
 }
 
-interface UseAxiosPatchOptions<R> {
+interface phantomPutOptions<R> {
   baseURL: string;
   route: string;
   id?: string; // Optional id parameter
@@ -26,15 +26,15 @@ interface UseAxiosPatchOptions<R> {
   getLatestData?: string;
 }
 
-interface UseAxiosPatchResult<R> {
+interface phantomPutResult<R> {
   response: R | null;
   error: any;
   loading: boolean;
-  patch: (data: any) => void;
+  put: (data: any) => void;
   latestData?: R | null;
 }
 
-export function phantomPatch<R>({
+export function phantomPut<R>({
   baseURL,
   route,
   id, // Optional id
@@ -46,7 +46,7 @@ export function phantomPatch<R>({
   axiosOptions = {},
   cloudinaryUpload,
   getLatestData,
-}: UseAxiosPatchOptions<R>): UseAxiosPatchResult<R> {
+}: phantomPutOptions<R>): phantomPutResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -104,7 +104,7 @@ export function phantomPatch<R>({
     return processedData;
   };
 
-  const sendPatchRequest = async (data: any) => {
+  const sendPutRequest = async (data: any) => {
     // If id is provided, append it to the route
     const finalRoute = id ? `${route}/${id}` : route;
     const url = `${baseURL}${finalRoute}`;  // Final URL with id appended
@@ -113,7 +113,7 @@ export function phantomPatch<R>({
 
     try {
       const requestData = await processRequestData(data);
-      const res = await axios.patch(url, requestData, {
+      const res = await axios.put(url, requestData, {
         headers: headersConfig,
         ...axiosOptions,
       });
@@ -129,7 +129,7 @@ export function phantomPatch<R>({
         onUnauthorized();
       } else {
         setError(err);
-        console.error(`Error patching data to ${route}:`, err);
+        console.error(`Error putting data to ${route}:`, err);
       }
     } finally {
       setLoading(false);
@@ -140,7 +140,7 @@ export function phantomPatch<R>({
     response,
     error,
     loading,
-    patch: sendPatchRequest,
+    put: sendPutRequest,
     latestData,
   };
 }

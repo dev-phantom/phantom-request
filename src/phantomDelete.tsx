@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
-import { phantomGet } from "./useAxiosGet";
+import { phantomGet } from "./phantomGet";
 
-interface UseAxiosDeleteOptions<R> {
+interface phantomDeleteOptions<R> {
   baseURL: string;
   route: string;
   id?: string; // Optional ID for dynamic routing
@@ -14,7 +14,7 @@ interface UseAxiosDeleteOptions<R> {
   getLatestData?: string; // Optional route for fetching the latest data
 }
 
-interface UseAxiosDeleteResult<R> {
+interface phantomDeleteResult<R> {
   response: R | null;
   error: any;
   loading: boolean;
@@ -34,7 +34,7 @@ export function phantomDelete<R>({
   headers = {},
   axiosOptions = {},
   getLatestData,
-}: UseAxiosDeleteOptions<R>): UseAxiosDeleteResult<R> {
+}: phantomDeleteOptions<R>): phantomDeleteResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

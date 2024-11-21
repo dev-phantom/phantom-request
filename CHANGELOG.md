@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/dev-phantom/phantom-request/compare/v1.3.1...v1.3.2) (2024-11-21)
+
+
+### Bug Fixes
+
+* changed all UseAxios- to phantom- ([ab1cea2](https://github.com/dev-phantom/phantom-request/commit/ab1cea2110d740e7c818aa38dae9f42852f893b5))
+* changed the remaining useAxios- to phantom- ([75af10c](https://github.com/dev-phantom/phantom-request/commit/75af10c5422e03f4447a896cd1b91a41074cf222))
+
 ### [1.3.1](https://github.com/dev-phantom/phantom-request/compare/v1.3.0...v1.3.1) (2024-11-21)
 
 
