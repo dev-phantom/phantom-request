@@ -28,6 +28,7 @@ interface phantomPutOptions<R> {
 
 interface phantomPutResult<R> {
   response: R | null;
+  res: R | null;
   error: any;
   loading: boolean;
   put: (data: any) => void;
@@ -48,6 +49,7 @@ export function phantomPut<R>({
   getLatestData,
 }: phantomPutOptions<R>): phantomPutResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
+  const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [latestData, setLatestData] = useState<R | null>(null);
@@ -137,6 +139,7 @@ export function phantomPut<R>({
   };
 
   return {
+    res,
     response,
     error,
     loading,

@@ -28,6 +28,7 @@ interface phantomPatchOptions<R> {
 
 interface phantomPatchResult<R> {
   response: R | null;
+  res: R | null;
   error: any;
   loading: boolean;
   patch: (data: any) => void;
@@ -48,6 +49,7 @@ export function phantomPatch<R>({
   getLatestData,
 }: phantomPatchOptions<R>): phantomPatchResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
+  const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [latestData, setLatestData] = useState<R | null>(null);
@@ -107,23 +109,25 @@ export function phantomPatch<R>({
   const sendPatchRequest = async (data: any) => {
     // If id is provided, append it to the route
     const finalRoute = id ? `${route}/${id}` : route;
-    const url = `${baseURL}${finalRoute}`;  // Final URL with id appended
+    const url = `${baseURL}${finalRoute}`; // Final URL with id appended
     const headersConfig = prepareHeaders();
     setLoading(true);
 
     try {
       const requestData = await processRequestData(data);
-      const res = await axios.patch(url, requestData, {
+      const res: any = await axios.patch(url, requestData, {
         headers: headersConfig,
         ...axiosOptions,
       });
 
       setResponse(res.data);
+      setRes(res);
       setError(null);
 
       if (getLatestData) {
         refetch();
       }
+      return res.data;
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
         onUnauthorized();
@@ -131,12 +135,14 @@ export function phantomPatch<R>({
         setError(err);
         console.error(`Error patching data to ${route}:`, err);
       }
+      throw err.response?.data || err; 
     } finally {
       setLoading(false);
     }
   };
 
   return {
+    res,
     response,
     error,
     loading,

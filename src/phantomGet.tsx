@@ -16,6 +16,7 @@ interface phantomGetOptions<T> {
 
 interface phantomGetResult<T> {
   data: T | null;
+  res: T | null;
   error: any;
   loading: boolean;
   refetch: () => void; // Manual refetch option
@@ -34,6 +35,7 @@ export function phantomGet<T>({
   fetchOnMount = true,
 }: phantomGetOptions<T>): phantomGetResult<T> {
   const [data, setData] = useState<T | null>(initialState);
+  const [res, setRes] = useState<T | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(fetchOnMount);
   const [shouldFetch, setShouldFetch] = useState(fetchOnMount); // Track whether to fetch data
@@ -60,8 +62,9 @@ export function phantomGet<T>({
     if (asyncAwait) {
       (async () => {
         try {
-          const response = await fetchPromise;
+          const response: any = await fetchPromise;
           setData(response.data);
+          setRes(response)
         } catch (err: any) {
           if (err.response && err.response.status === 401) {
             onUnauthorized();
@@ -75,8 +78,9 @@ export function phantomGet<T>({
       })();
     } else {
       fetchPromise
-        .then((response) => {
+        .then((response: any) => {
           setData(response.data);
+          setRes(response)
         })
         .catch((err) => {
           if (err.response && err.response.status === 401) {
@@ -100,6 +104,7 @@ export function phantomGet<T>({
   }, [baseURL, route, token, params, restHeader, restOptions, shouldFetch]);
 
   return {
+    res,
     data,
     error,
     loading,

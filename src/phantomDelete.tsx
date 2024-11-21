@@ -16,6 +16,7 @@ interface phantomDeleteOptions<R> {
 
 interface phantomDeleteResult<R> {
   response: R | null;
+  res: R | null;
   error: any;
   loading: boolean;
   deleteRequest: (options?: {
@@ -36,6 +37,7 @@ export function phantomDelete<R>({
   getLatestData,
 }: phantomDeleteOptions<R>): phantomDeleteResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
+  const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [latestData, setLatestData] = useState<R | null>(null);
@@ -77,13 +79,14 @@ export function phantomDelete<R>({
     setLoading(true);
 
     try {
-      const res = await axios.delete(url, {
+      const res: any = await axios.delete(url, {
         headers: headersConfig,
         data: options?.body, // Pass body if provided
         ...axiosOptions,
       });
 
       setResponse(res.data);
+      setRes(res)
       setError(null);
 
       if (getLatestData) {
@@ -102,6 +105,7 @@ export function phantomDelete<R>({
   };
 
   return {
+    res,
     response,
     error,
     loading,

@@ -27,6 +27,7 @@ interface phantomPostOptions<R> {
 
 interface phantomPostResult<R> {
   response: R | null;
+  res: R | null;
   error: any;
   loading: boolean;
   post: (data: any) => void;
@@ -46,6 +47,7 @@ export function phantomPost<R>({
   getLatestData, // Destructure the new parameter
 }: phantomPostOptions<R>): phantomPostResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
+  const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [latestData, setLatestData] = useState<R | null>(null); // For fetched data
@@ -111,12 +113,13 @@ export function phantomPost<R>({
 
     try {
       const requestData = await processRequestData(data);
-      const res = await axios.post(url, requestData, {
+      const res: any = await axios.post(url, requestData, {
         headers: headersConfig,
         ...axiosOptions,
       });
 
       setResponse(res.data);
+      setRes(res)
       setError(null);
 
       if (getLatestData) {
@@ -142,6 +145,7 @@ export function phantomPost<R>({
 
   return {
     response,
+    res,
     error,
     loading,
     post: sendPostRequest,

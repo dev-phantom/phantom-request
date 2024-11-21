@@ -19,16 +19,29 @@
 
 ## Overview
 
-The **goal** of `phantom-request` is to simplify making API requests with minimal code. This package allows you to make HTTP requests in a single line of code, leveraging the power of **Axios**. It is designed for developers who want to quickly perform requests with built-in support for things like token management, headers, and parameters—without worrying about boilerplate code like handling `useEffect` for data fetching (though it can be used for more control).
+The **goal** of `phantom-request` is to simplify making API requests with minimal code. This package allows you to make HTTP requests in a single line of code, leveraging the power of **[Axios](https://axios-http.com/)**. It is designed for developers who want to quickly perform requests with built-in support for things like token management, headers, and parameters—without worrying about boilerplate code like handling `useEffect` for data fetching (though it can be used for more control).
+
+Got it! I'll make the **Features** section more consistent by ensuring all feature descriptions follow a similar format, with the key phrases bolded. Here's the fixed version:
+
+---
 
 ## Features
 
-- **Single-Line Requests:** Makes API requests in just one line of code.
-- **Automatic Axios Integration:** Leverages `axios` for powerful and flexible HTTP requests.
-- **Error Handling:** Handles common errors like unauthorized access with custom handlers.
-- **Token and Header Management:** Supports automatic token injection and custom headers.
-- **Manual Refetch:** Allows manual triggering of a refetch without needing additional `useEffect` hooks.
-- **Logout and Redirection:** Built-in methods to clear cookies and local storage with optional redirection.
+- **Single-Line Requests:** Makes API requests in just one line of code.  
+- **Automatic Axios Integration:** Leverages **[Axios](https://axios-http.com/)** for powerful and flexible HTTP requests.  
+- **Error Handling:** Automatically handles common errors like unauthorized access with custom handlers.  
+- **Token and Header Management:** Supports automatic token injection and custom headers.  
+- **Manual Refetch:** Allows manual triggering of a refetch without needing additional `useEffect` hooks.  
+- **Logout and Redirection:** Provides built-in methods to clear cookies and local storage with optional redirection.  
+- **Standard JSON POST Requests:** Simplifies sending JSON payloads in POST requests.  
+- **File Uploads:** Upload files (e.g., images, videos, PDFs) using `multipart/form-data`.  
+- **Cloudinary Integration:** Includes support for media uploads to Cloudinary.  
+- **Real-Time Data Fetching:** Automatically fetch the latest data after a POST request.  
+- **Authorization Support:** Handles custom headers and authorization seamlessly.  
+- **Flexible ID Handling:** Collects `id` as a parameter for PUT and PATCH requests.  
+- **DELETE Requests:** Accepts `id` either in the request body or as a parameter for DELETE requests.  
+
+---
 
 ## Installation
 
@@ -142,12 +155,13 @@ export default App;
 
 #### Returns
 
-| Return    | Type                           | Description                            |
-| --------- | ------------------------------ | -------------------------------------- |
-| **`data`**    | `T | null`                    | The fetched data or `null` if no data has been fetched yet.                            |
-| **`error`**   | `any`                          | Any error that occurred during the request.                                            |
-| **`loading`** | `boolean`                      | Whether the request is still loading.                                                  |
-| **`refetch`** | `() => void`                   | Manually triggers a refetch of the data.                                               |
+| **Return**   | **Type**            | **Description**                                                                           |
+|--------------|---------------------|-------------------------------------------------------------------------------------------|
+| `data`       | `T \| null`         | The fetched data or `null` if no data has been fetched yet.                              |
+| `res`        | `T \| null`         | The fetched response.                                                                    |
+| `error`      | `any`               | Any error that occurred during the request.                                              |
+| `loading`    | `boolean`           | Indicates whether the request is still loading.                                          |
+| `refetch`    | `() => void`        | A function to manually trigger a refetch of the data.                                    |
 
 ## Optional Parameters
 
@@ -188,13 +202,6 @@ export default App;
 
 ### POST Request
 
-- Standard JSON POST requests
-- Uploading files (e.g., images, videos, PDFs) via `multipart/form-data`
-- Integrating with Cloudinary for media uploads
-- Fetching the latest data after a POST request
-- Handling authorization and custom headers
-
-## Features
 - Supports various content types (`application/json`, `multipart/form-data`, etc.)
 - Automatic Cloudinary file uploads
 - Customizable headers and token-based authorization
@@ -369,6 +376,7 @@ The hook returns an object with the following:
 | Property      | Type                  | Description                                                                 |
 |---------------|-----------------------|-----------------------------------------------------------------------------|
 | `response`    | `R \| null`           | The server response data.                                                   |
+| `res`    | `R \| null`           | The server response                                                    |
 | `error`       | `any`                 | Error object if the request fails.                                          |
 | `loading`     | `boolean`             | Indicates if the request is in progress.                                    |
 | `post`        | `(data: any) => void` | Function to send a POST request. Accepts the request body as its parameter. |
@@ -467,9 +475,9 @@ Below are the parameters you can pass to `phantomPatch` and their descriptions:
 | `id`               | `string` (optional)              | ID of the resource to be updated. Will be appended to the route, e.g., `driver/update/:id`.                                                 |
 | `token`            | `string` (optional)              | Authorization token to be sent in the `Authorization` header as `Bearer <token>`.                                                           |
 | `onUnauthorized`   | `() => void` (optional)          | Callback function to handle 401 Unauthorized responses, such as redirecting to a login page.                                                |
-| `initialState`     | `R | null` (optional)            | Initial state for the `response`. Useful for setting a default value.                                                                       |
+| `initialState`     | `R \| null` (optional)            | Initial state for the `response`. Useful for setting a default value.                                                                       |
 | `headers`          | `Record<string, string>` (optional) | Custom headers to include in the request, e.g., `{ "X-Custom-Header": "value" }`.                                                           |
-| `contentType`      | `"application/json" | "multipart/form-data" | "application/x-www-form-urlencoded"` | Content type of the request. Default is `application/json`.                                          |
+| `contentType`      | `"application/json" \| "multipart/form-data" \| "application/x-www-form-urlencoded"` | Content type of the request. Default is `application/json`.                                          |
 | `axiosOptions`     | `AxiosRequestConfig` (optional)  | Additional Axios options, such as timeouts or custom response handling.                                                                     |
 | `cloudinaryUpload` | `CloudinaryUploadOptions` (optional) | Configuration for uploading files to Cloudinary.                                                                                            |
 | `getLatestData`    | `string` (optional)              | API route to fetch the latest data after a successful patch. Uses `phantomGet` internally to retrieve this data.                           |
@@ -494,31 +502,16 @@ Below are the parameters you can pass to `phantomPatch` and their descriptions:
 
 ---
 
----
-
 ### Return Parameters for `phantomPatch`
 
 | Parameter         | Type                         | Description                                                                                              |
 |-------------------|------------------------------|----------------------------------------------------------------------------------------------------------|
-| `response`        | `R | null`                    | The data returned from the API after a successful PATCH request. This contains the updated resource data. |
+| `response`        | `R \| null`                    | The data returned from the API after a successful PATCH request. This contains the updated resource data. |
+| `res`        | `R \| null`                    | The response returned from the API after a successful PATCH request. |
 | `error`           | `any`                         | The error object if the PATCH request fails. Can contain error message, status code, or other details.    |
 | `loading`         | `boolean`                     | Indicates whether the PATCH request is in progress. `true` when loading, `false` when the request is complete. |
 | `patch`           | `(data: any) => void`         | A function that you call to trigger the PATCH request with the specified `data`. It sends the data to the server to be updated. |
-| `latestData`      | `R | null`                    | Contains the most recent data fetched from the server (if `getLatestData` was provided and refetched). This value is updated after a successful PATCH request. |
-
----
-
-### Description of Each Return Parameter:
-
-- **`response`**: The response returned by the API after a successful PATCH request. This typically includes the updated resource, such as the driver details or media metadata, depending on your API. If the request is unsuccessful, this will be `null`.
-  
-- **`error`**: Any error that occurs during the PATCH request. This could be a network error, validation error from the API, or any other issue. If the request is successful, this value is `null`.
-
-- **`loading`**: A boolean indicating the current state of the PATCH request. When `true`, the request is in progress, and you may want to display a loading spinner or message. Once the request is finished (whether it’s successful or not), it will be set to `false`.
-
-- **`patch`**: This is a function that you call to initiate the PATCH request. You pass it the data that you want to update on the server. For example: `patch({ first_name: "phantom" })`.
-
-- **`latestData`**: If you provided a `getLatestData` option, this parameter will hold the most up-to-date data that has been fetched from the server after the PATCH request (if `refetch()` is called). It is particularly useful when you want to refresh data after a PATCH operation, ensuring you’re working with the latest resource state.
+| `latestData`      | `R \| null`                    | Contains the most recent data fetched from the server (if `getLatestData` was provided and refetched). This value is updated after a successful PATCH request. |
 
 ---
 
@@ -609,7 +602,7 @@ const App = () => {
 | `token`            | `string` (optional)              | Authorization token sent in `Authorization: Bearer <token>`.                |
 | `onUnauthorized`   | `() => void` (optional)          | Callback for 401 Unauthorized responses, e.g., redirecting to login.        |
 | `headers`          | `Record<string, string>` (optional) | Additional headers for the request.                                        |
-| `contentType`      | `"application/json" | "multipart/form-data"` | Content-Type of the request. Default is `application/json`.|
+| `contentType`      | `"application/json" \| "multipart/form-data" \| "application/x-www-form-urlencoded"` | Content-Type of the request. Default is `application/json`.|
 | `getLatestData`    | `string` (optional)              | Refetch the latest data from this route after a successful PUT.             |
 
 ---
@@ -618,11 +611,11 @@ const App = () => {
 
 | Parameter         | Type                  | Description                                                                 |
 |-------------------|-----------------------|-----------------------------------------------------------------------------|
-| `response`        | `R | null`           | Response from the PUT request, e.g., updated resource data.                |
+| `response`        | `R \| null`           | Response from the PUT request, e.g., updated resource data.                |
 | `error`           | `any`                | Error object if the PUT request fails.                                     |
 | `loading`         | `boolean`            | Indicates whether the PUT request is in progress.                          |
 | `put`             | `(data: any) => void` | Function to trigger the PUT request with the provided data.                |
-| `latestData`      | `R | null`           | Refreshed data fetched after a successful PUT request (if `getLatestData`).|
+| `latestData`      | `R \| null`           | Refreshed data fetched after a successful PUT request (if `getLatestData`).|
 
 
 ---
@@ -729,6 +722,7 @@ The hook returns the following properties:
 | `loading`        | `boolean`                          | Indicates if the request is in progress.                         |
 | `error`          | `any`                              | Error object from the request (if any).                          |
 | `response`       | `any`                              | Response data from the DELETE request.                           |
+| `res`       | `any`                              | Response from the DELETE request.                           |
 | `latestData`     | `any`                              | Data from the `getLatestData` route (if configured).             |
 
 ---
