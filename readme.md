@@ -472,7 +472,7 @@ Below are the parameters you can pass to `phantomPatch` and their descriptions:
 | `contentType`      | `"application/json" | "multipart/form-data" | "application/x-www-form-urlencoded"` | Content type of the request. Default is `application/json`.                                          |
 | `axiosOptions`     | `AxiosRequestConfig` (optional)  | Additional Axios options, such as timeouts or custom response handling.                                                                     |
 | `cloudinaryUpload` | `CloudinaryUploadOptions` (optional) | Configuration for uploading files to Cloudinary.                                                                                            |
-| `getLatestData`    | `string` (optional)              | API route to fetch the latest data after a successful patch. Uses `useAxiosGet` internally to retrieve this data.                           |
+| `getLatestData`    | `string` (optional)              | API route to fetch the latest data after a successful patch. Uses `phantomGet` internally to retrieve this data.                           |
 
 ---
 
@@ -496,7 +496,7 @@ Below are the parameters you can pass to `phantomPatch` and their descriptions:
 
 ---
 
-### Return Parameters for `useAxiosPatch`
+### Return Parameters for `phantomPatch`
 
 | Parameter         | Type                         | Description                                                                                              |
 |-------------------|------------------------------|----------------------------------------------------------------------------------------------------------|

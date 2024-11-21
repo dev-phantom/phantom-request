@@ -25,7 +25,7 @@ export interface phantomGetOptions<T> {
 // Alias for the phantomGet hook
 export type phantomGet<T> = (options: phantomGetOptions<T>) => phantomGetResult<T>;
 
-// Result type for the useAxiosPost hook
+// Result type for the phantomPost hook
 export interface phantomPostResult<R> {
   response: R | null; // Response data from the POST request
   error: any; // Error details, if any
@@ -40,7 +40,7 @@ interface CloudinaryUploadOptions {
   upload_preset: string;
 }
 
-// Options for configuring the useAxiosPost hook
+// Options for configuring the phantomPost hook
 export interface phantomPostOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
@@ -57,10 +57,10 @@ export interface phantomPostOptions<R> {
   getLatestData?: string; // New parameter for fetching latest data
 }
 
-// Alias for the useAxiosPost hook
+// Alias for the phantomPost hook
 export type phantomPost<R> = (options: phantomPostOptions<R>) => phantomPostResult<R>;
 
-// Result type for the useAxiosPatch hook
+// Result type for the phantomPatch hook
 export interface phantomPatchResult<R> {
   response: R | null; // Response data from the POST request
   error: any; // Error details, if any
@@ -69,7 +69,7 @@ export interface phantomPatchResult<R> {
   latestData?: R | null; // get lastest data if specified
 }
 
-// Options for configuring the useAxiosPatch hook
+// Options for configuring the phantomPatch hook
 export interface phantomPatchOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
@@ -87,10 +87,10 @@ export interface phantomPatchOptions<R> {
   id?: string;
 }
 
-// Alias for the useAxiosPatch hook
+// Alias for the phantomPatch hook
 export type phantomPatch<R> = (options: phantomPatchOptions<R>) => phantomPatchResult<R>;
 
-// Result type for the useAxiosPut hook
+// Result type for the phantomPut hook
 export interface phantomPutResult<R> {
   response: R | null; // Response data from the POST request
   error: any; // Error details, if any
@@ -99,7 +99,7 @@ export interface phantomPutResult<R> {
   latestData?: R | null; // get lastest data if specified
 }
 
-// Options for configuring the useAxiosPut hook
+// Options for configuring the phantomPut hook
 export interface phantomPutOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
@@ -117,7 +117,7 @@ export interface phantomPutOptions<R> {
   id?: string;
 }
 
-// Alias for the useAxiosPut hook
+// Alias for the phantomPut hook
 export type phantomPut<R> = (options: phantomPutOptions<R>) => phantomPutResult<R>;
 
 
