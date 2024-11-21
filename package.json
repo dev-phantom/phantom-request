@@ -1,6 +1,6 @@
 {
   "name": "phantom-request",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "HTTP/HTTPS requests made easier",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",

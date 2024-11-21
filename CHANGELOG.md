@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/dev-phantom/phantom-request/compare/v1.3.3...v1.3.4) (2024-11-21)
+
+
+### Bug Fixes
+
+* added exports to index.d.ts ([a692b7d](https://github.com/dev-phantom/phantom-request/commit/a692b7dd8613e91ca76f763a83af60a31407f134))
+
 ### [1.3.3](https://github.com/dev-phantom/phantom-request/compare/v1.3.2...v1.3.3) (2024-11-21)
 
 
