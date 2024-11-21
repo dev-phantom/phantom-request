@@ -1,15 +1,15 @@
 import { AxiosRequestConfig } from "axios"; // Import the AxiosRequestConfig type
 
-// Result type for the useAxiosGet hook
-export interface UseAxiosGetResult<T> {
+// Result type for the phantomGet hook
+export interface phantomGetResult<T> {
   data: T | null; // The fetched data
   error: any; // Error details, if any
   loading: boolean; // Loading state
   refetch: () => void; // Function to refetch the data
 }
 
-// Options for configuring the useAxiosGet hook
-export interface UseAxiosGetOptions<T> {
+// Options for configuring the phantomGet hook
+export interface phantomGetOptions<T> {
   baseURL: string; // Base URL for the API
   route: string; // API route to fetch data from
   token?: string; // Optional authorization token
@@ -22,11 +22,11 @@ export interface UseAxiosGetOptions<T> {
   fetchOnMount?: boolean; // Whether to fetch data on component mount
 }
 
-// Alias for the useAxiosGet hook
-export type phantomGet<T> = (options: UseAxiosGetOptions<T>) => UseAxiosGetResult<T>;
+// Alias for the phantomGet hook
+export type phantomGet<T> = (options: phantomGetOptions<T>) => phantomGetResult<T>;
 
 // Result type for the useAxiosPost hook
-export interface UseAxiosPostResult<R> {
+export interface phantomPostResult<R> {
   response: R | null; // Response data from the POST request
   error: any; // Error details, if any
   loading: boolean; // Loading state
@@ -41,7 +41,7 @@ interface CloudinaryUploadOptions {
 }
 
 // Options for configuring the useAxiosPost hook
-export interface UseAxiosPostOptions<R> {
+export interface phantomPostOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
   token?: string; // Optional authorization token
@@ -58,10 +58,10 @@ export interface UseAxiosPostOptions<R> {
 }
 
 // Alias for the useAxiosPost hook
-export type phantomPost<R> = (options: UseAxiosPostOptions<R>) => UseAxiosPostResult<R>;
+export type phantomPost<R> = (options: phantomPostOptions<R>) => phantomPostResult<R>;
 
 // Result type for the useAxiosPatch hook
-export interface UseAxiosPatchResult<R> {
+export interface phantomPatchResult<R> {
   response: R | null; // Response data from the POST request
   error: any; // Error details, if any
   loading: boolean; // Loading state
@@ -70,7 +70,7 @@ export interface UseAxiosPatchResult<R> {
 }
 
 // Options for configuring the useAxiosPatch hook
-export interface UseAxiosPatchOptions<R> {
+export interface phantomPatchOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
   token?: string; // Optional authorization token
@@ -88,10 +88,10 @@ export interface UseAxiosPatchOptions<R> {
 }
 
 // Alias for the useAxiosPatch hook
-export type phantomPatch<R> = (options: UseAxiosPatchOptions<R>) => UseAxiosPatchResult<R>;
+export type phantomPatch<R> = (options: phantomPatchOptions<R>) => phantomPatchResult<R>;
 
 // Result type for the useAxiosPut hook
-export interface UseAxiosPutResult<R> {
+export interface phantomPutResult<R> {
   response: R | null; // Response data from the POST request
   error: any; // Error details, if any
   loading: boolean; // Loading state
@@ -100,7 +100,7 @@ export interface UseAxiosPutResult<R> {
 }
 
 // Options for configuring the useAxiosPut hook
-export interface UseAxiosPutOptions<R> {
+export interface phantomPutOptions<R> {
   baseURL: string; // Base URL for the API
   route: string; // API route for the POST request
   token?: string; // Optional authorization token
@@ -118,10 +118,10 @@ export interface UseAxiosPutOptions<R> {
 }
 
 // Alias for the useAxiosPut hook
-export type phantomPut<R> = (options: UseAxiosPutOptions<R>) => UseAxiosPutResult<R>;
+export type phantomPut<R> = (options: phantomPutOptions<R>) => phantomPutResult<R>;
 
 
-interface UseAxiosDeleteOptions<R> {
+interface phantomDeleteOptions<R> {
   baseURL: string;
   route: string;
   id?: string; // Optional ID for dynamic routing
@@ -133,7 +133,7 @@ interface UseAxiosDeleteOptions<R> {
   getLatestData?: string; // Optional route for fetching the latest data
 }
 
-interface UseAxiosDeleteResult<R> {
+interface phantomDeleteResult<R> {
   response: R | null;
   error: any;
   loading: boolean;
@@ -144,4 +144,4 @@ interface UseAxiosDeleteResult<R> {
   latestData?: R | null;
 }
 
-export type phantomDelete<R> = (options: UseAxiosDeleteOptions<R>) => UseAxiosDeleteResult<R>;
+export type phantomDelete<R> = (options: phantomDeleteOptions<R>) => phantomDeleteResult<R>;

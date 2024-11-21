@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
-import { phantomGet } from "./useAxiosGet";
+import { phantomGet } from "./phantomGet";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -9,7 +9,7 @@ interface CloudinaryUploadOptions {
   upload_preset: string;
 }
 
-interface UseAxiosPostOptions<R> {
+interface phantomPostOptions<R> {
   baseURL: string;
   route: string;
   token?: string;
@@ -25,7 +25,7 @@ interface UseAxiosPostOptions<R> {
   getLatestData?: string; // New parameter for fetching latest data
 }
 
-interface UseAxiosPostResult<R> {
+interface phantomPostResult<R> {
   response: R | null;
   error: any;
   loading: boolean;
@@ -44,7 +44,7 @@ export function phantomPost<R>({
   axiosOptions = {},
   cloudinaryUpload,
   getLatestData, // Destructure the new parameter
-}: UseAxiosPostOptions<R>): UseAxiosPostResult<R> {
+}: phantomPostOptions<R>): phantomPostResult<R> {
   const [response, setResponse] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

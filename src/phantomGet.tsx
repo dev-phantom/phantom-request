@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 
-interface UseAxiosGetOptions<T> {
+interface phantomGetOptions<T> {
   baseURL: string;
   route: string;
   token?: string;
@@ -14,7 +14,7 @@ interface UseAxiosGetOptions<T> {
   fetchOnMount?: boolean; // Control fetching on mount
 }
 
-interface UseAxiosGetResult<T> {
+interface phantomGetResult<T> {
   data: T | null;
   error: any;
   loading: boolean;
@@ -32,7 +32,7 @@ export function phantomGet<T>({
   asyncAwait = true,
   restOptions,
   fetchOnMount = true,
-}: UseAxiosGetOptions<T>): UseAxiosGetResult<T> {
+}: phantomGetOptions<T>): phantomGetResult<T> {
   const [data, setData] = useState<T | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(fetchOnMount);
