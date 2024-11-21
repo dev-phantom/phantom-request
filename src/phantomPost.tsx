@@ -122,13 +122,19 @@ export function phantomPost<R>({
       if (getLatestData) {
         refetch(); // Trigger refetch after successful POST request
       }
+      return res.data;
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
         onUnauthorized();
-      } else {
+      }else if (err.response.data && err.response.status === 401) {
+        setError(err.data);
+        console.error(`Error posting data to ${route}:`, err.data);
+      }
+       else {
         setError(err);
         console.error(`Error posting data to ${route}:`, err);
       }
+      throw err.response?.data || err; 
     } finally {
       setLoading(false);
     }
