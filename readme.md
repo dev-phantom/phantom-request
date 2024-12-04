@@ -21,8 +21,6 @@
 
 The **goal** of `phantom-request` is to simplify making API requests with minimal code. This package allows you to make HTTP requests in a single line of code, leveraging the power of **[Axios](https://axios-http.com/)**. It is designed for developers who want to quickly perform requests with built-in support for things like token management, headers, and parameters—without worrying about boilerplate code like handling `useEffect` for data fetching (though it can be used for more control).
 
-Got it! I'll make the **Features** section more consistent by ensuring all feature descriptions follow a similar format, with the key phrases bolded. Here's the fixed version:
-
 ---
 
 ## Features
