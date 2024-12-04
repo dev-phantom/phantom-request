@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/dev-phantom/phantom-request/compare/v1.4.0...v1.4.1) (2024-12-04)
+
+
+### Bug Fixes
+
+* updated the readme ([634c85e](https://github.com/dev-phantom/phantom-request/commit/634c85ebc4c4a81db08849c5464bc0dd0ad68103))
+
 ## [1.4.0](https://github.com/dev-phantom/phantom-request/compare/v1.3.6...v1.4.0) (2024-11-21)
 
 
