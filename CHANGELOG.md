@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/dev-phantom/phantom-request/compare/v1.4.1...v1.5.0) (2024-12-06)
+
+
+### Features
+
+* added phantom config ([0f11e35](https://github.com/dev-phantom/phantom-request/commit/0f11e35b8a597474377531d17b2d11f7843dd5e7))
+
+### [1.4.1](https://github.com/dev-phantom/phantom-request/compare/v1.4.0...v1.4.1) (2024-12-04)
+
+
+### Bug Fixes
+
+* updated the readme ([634c85e](https://github.com/dev-phantom/phantom-request/commit/634c85ebc4c4a81db08849c5464bc0dd0ad68103))
+
+## [1.4.0](https://github.com/dev-phantom/phantom-request/compare/v1.3.6...v1.4.0) (2024-11-21)
+
+
+### Features
+
+* added res to return the server response ([7853fed](https://github.com/dev-phantom/phantom-request/commit/7853fed4d350595e82493efc8504381f6c155030))
+
+### [1.3.6](https://github.com/dev-phantom/phantom-request/compare/v1.3.5...v1.3.6) (2024-11-21)
+
+
+### Bug Fixes
+
+* response and error in phantom post ([0650cd1](https://github.com/dev-phantom/phantom-request/commit/0650cd1f15f3bbb11de56c610ccb3cdd192c9332))
+
+### [1.3.5](https://github.com/dev-phantom/phantom-request/compare/v1.3.4...v1.3.5) (2024-11-21)
+
+
+### Bug Fixes
+
+* fixed all major issues ([1f227dc](https://github.com/dev-phantom/phantom-request/commit/1f227dc68bb71589035e5feb5d0fa08d6ccd243d))
+
+### [1.3.4](https://github.com/dev-phantom/phantom-request/compare/v1.3.3...v1.3.4) (2024-11-21)
+
+
+### Bug Fixes
+
+* added exports to index.d.ts ([a692b7d](https://github.com/dev-phantom/phantom-request/commit/a692b7dd8613e91ca76f763a83af60a31407f134))
+
 ### [1.3.3](https://github.com/dev-phantom/phantom-request/compare/v1.3.2...v1.3.3) (2024-11-21)
 
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
 import { phantomGet } from "./phantomGet";
+import { getPhantomConfig } from "./config/phantomConfig";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -27,25 +28,35 @@ interface phantomPostOptions<R> {
 
 interface phantomPostResult<R> {
   response: R | null;
+  res: R | null;
   error: any;
   loading: boolean;
   post: (data: any) => void;
   latestData?: R | null; // To store the fetched latest data
 }
 
-export function phantomPost<R>({
-  baseURL,
-  route,
-  token,
-  onUnauthorized = () => {},
-  initialState = null,
-  headers = {},
-  contentType = "application/json",
-  axiosOptions = {},
-  cloudinaryUpload,
-  getLatestData, // Destructure the new parameter
-}: phantomPostOptions<R>): phantomPostResult<R> {
+export function phantomPost<R>(options : phantomPostOptions<R>): phantomPostResult<R> {
+  const globalConfig = getPhantomConfig();
+  const mergedOptions = {
+    ...globalConfig,
+    ...options, // Per-call overrides
+  };
+
+  const {
+    baseURL,
+    route,
+    token,
+    onUnauthorized = () => {},
+    initialState = null,
+    headers = {},
+    contentType = "application/json",
+    axiosOptions = {},
+    cloudinaryUpload,
+    getLatestData, // Destructure the new parameter
+  } = mergedOptions;
+
   const [response, setResponse] = useState<R | null>(initialState);
+  const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [latestData, setLatestData] = useState<R | null>(null); // For fetched data
@@ -105,30 +116,42 @@ export function phantomPost<R>({
   };
 
   const sendPostRequest = async (data: any) => {
+    if (!baseURL ) {
+      console.error("Base URL is required");
+      return;
+    }
+    
     const url = `${baseURL}${route}`;
     const headersConfig = prepareHeaders();
     setLoading(true);
 
     try {
       const requestData = await processRequestData(data);
-      const res = await axios.post(url, requestData, {
+      const res: any = await axios.post(url, requestData, {
         headers: headersConfig,
         ...axiosOptions,
       });
 
       setResponse(res.data);
+      setRes(res)
       setError(null);
 
       if (getLatestData) {
         refetch(); // Trigger refetch after successful POST request
       }
+      return res.data;
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
         onUnauthorized();
-      } else {
+      }else if (err.response.data && err.response.status === 401) {
+        setError(err.data);
+        console.error(`Error posting data to ${route}:`, err.data);
+      }
+       else {
         setError(err);
         console.error(`Error posting data to ${route}:`, err);
       }
+      throw err.response?.data || err; 
     } finally {
       setLoading(false);
     }
@@ -136,6 +159,7 @@ export function phantomPost<R>({
 
   return {
     response,
+    res,
     error,
     loading,
     post: sendPostRequest,

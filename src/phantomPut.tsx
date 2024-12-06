@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
 import { phantomGet } from "./phantomGet";
+import { getPhantomConfig } from "./config/phantomConfig";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -28,26 +29,36 @@ interface phantomPutOptions<R> {
 
 interface phantomPutResult<R> {
   response: R | null;
+  res: R | null;
   error: any;
   loading: boolean;
   put: (data: any) => void;
   latestData?: R | null;
 }
 
-export function phantomPut<R>({
-  baseURL,
-  route,
-  id, // Optional id
-  token,
-  onUnauthorized = () => {},
-  initialState = null,
-  headers = {},
-  contentType = "application/json",
-  axiosOptions = {},
-  cloudinaryUpload,
-  getLatestData,
-}: phantomPutOptions<R>): phantomPutResult<R> {
+export function phantomPut<R>(options: phantomPutOptions<R>): phantomPutResult<R> {
+  const globalConfig = getPhantomConfig();
+  const mergedOptions = {
+    ...globalConfig,
+    ...options, // Per-call overrides
+  };
+  
+  const {
+    baseURL,
+    route,
+    id, // Optional id
+    token,
+    onUnauthorized = () => {},
+    initialState = null,
+    headers = {},
+    contentType = "application/json",
+    axiosOptions = {},
+    cloudinaryUpload,
+    getLatestData,
+  } = mergedOptions;
+
   const [response, setResponse] = useState<R | null>(initialState);
+  const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [latestData, setLatestData] = useState<R | null>(null);
@@ -137,6 +148,7 @@ export function phantomPut<R>({
   };
 
   return {
+    res,
     response,
     error,
     loading,

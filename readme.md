@@ -14,21 +14,33 @@
 5. [API](#api)  
    - [`phantomGet`](#phantomget)  
 6. [Customizing Requests](#customizing-requests)  
-7. [Contributing](#contributing)  
-8. [License](#license)
+7. [Phantom Config](#phantom-config)  
+8. [Contributing](#contributing)  
+9. [License](#license)
 
 ## Overview
 
-The **goal** of `phantom-request` is to simplify making API requests with minimal code. This package allows you to make HTTP requests in a single line of code, leveraging the power of **Axios**. It is designed for developers who want to quickly perform requests with built-in support for things like token management, headers, and parameters—without worrying about boilerplate code like handling `useEffect` for data fetching (though it can be used for more control).
+The **goal** of `phantom-request` is to simplify making API requests with minimal code. This package allows you to make HTTP requests in a single line of code, leveraging the power of **[Axios](https://axios-http.com/)**. It is designed for developers who want to quickly perform requests with built-in support for things like token management, headers, and parameters—without worrying about boilerplate code like handling `useEffect` for data fetching (though it can be used for more control).
+
+---
 
 ## Features
 
-- **Single-Line Requests:** Makes API requests in just one line of code.
-- **Automatic Axios Integration:** Leverages `axios` for powerful and flexible HTTP requests.
-- **Error Handling:** Handles common errors like unauthorized access with custom handlers.
-- **Token and Header Management:** Supports automatic token injection and custom headers.
-- **Manual Refetch:** Allows manual triggering of a refetch without needing additional `useEffect` hooks.
-- **Logout and Redirection:** Built-in methods to clear cookies and local storage with optional redirection.
+- **Single-Line Requests:** Makes API requests in just one line of code.  
+- **Automatic Axios Integration:** Leverages **[Axios](https://axios-http.com/)** for powerful and flexible HTTP requests.  
+- **Error Handling:** Automatically handles common errors like unauthorized access with custom handlers.  
+- **Token and Header Management:** Supports automatic token injection and custom headers.  
+- **Manual Refetch:** Allows manual triggering of a refetch without needing additional `useEffect` hooks.  
+- **Logout and Redirection:** Provides built-in methods to clear cookies and local storage with optional redirection.  
+- **Standard JSON POST Requests:** Simplifies sending JSON payloads in POST requests.  
+- **File Uploads:** Upload files (e.g., images, videos, PDFs) using `multipart/form-data`.  
+- **Cloudinary Integration:** Includes support for media uploads to Cloudinary.  
+- **Real-Time Data Fetching:** Automatically fetch the latest data after a POST request.  
+- **Authorization Support:** Handles custom headers and authorization seamlessly.  
+- **Flexible ID Handling:** Collects `id` as a parameter for PUT and PATCH requests.  
+- **DELETE Requests:** Accepts `id` either in the request body or as a parameter for DELETE requests.  
+
+---
 
 ## Installation
 
@@ -142,12 +154,13 @@ export default App;
 
 #### Returns
 
-| Return    | Type                           | Description                            |
-| --------- | ------------------------------ | -------------------------------------- |
-| **`data`**    | `T | null`                    | The fetched data or `null` if no data has been fetched yet.                            |
-| **`error`**   | `any`                          | Any error that occurred during the request.                                            |
-| **`loading`** | `boolean`                      | Whether the request is still loading.                                                  |
-| **`refetch`** | `() => void`                   | Manually triggers a refetch of the data.                                               |
+| **Return**   | **Type**            | **Description**                                                                           |
+|--------------|---------------------|-------------------------------------------------------------------------------------------|
+| `data`       | `T \| null`         | The fetched data or `null` if no data has been fetched yet.                              |
+| `res`        | `T \| null`         | The fetched response.                                                                    |
+| `error`      | `any`               | Any error that occurred during the request.                                              |
+| `loading`    | `boolean`           | Indicates whether the request is still loading.                                          |
+| `refetch`    | `() => void`        | A function to manually trigger a refetch of the data.                                    |
 
 ## Optional Parameters
 
@@ -188,13 +201,6 @@ export default App;
 
 ### POST Request
 
-- Standard JSON POST requests
-- Uploading files (e.g., images, videos, PDFs) via `multipart/form-data`
-- Integrating with Cloudinary for media uploads
-- Fetching the latest data after a POST request
-- Handling authorization and custom headers
-
-## Features
 - Supports various content types (`application/json`, `multipart/form-data`, etc.)
 - Automatic Cloudinary file uploads
 - Customizable headers and token-based authorization
@@ -369,6 +375,7 @@ The hook returns an object with the following:
 | Property      | Type                  | Description                                                                 |
 |---------------|-----------------------|-----------------------------------------------------------------------------|
 | `response`    | `R \| null`           | The server response data.                                                   |
+| `res`    | `R \| null`           | The server response                                                    |
 | `error`       | `any`                 | Error object if the request fails.                                          |
 | `loading`     | `boolean`             | Indicates if the request is in progress.                                    |
 | `post`        | `(data: any) => void` | Function to send a POST request. Accepts the request body as its parameter. |
@@ -467,9 +474,9 @@ Below are the parameters you can pass to `phantomPatch` and their descriptions:
 | `id`               | `string` (optional)              | ID of the resource to be updated. Will be appended to the route, e.g., `driver/update/:id`.                                                 |
 | `token`            | `string` (optional)              | Authorization token to be sent in the `Authorization` header as `Bearer <token>`.                                                           |
 | `onUnauthorized`   | `() => void` (optional)          | Callback function to handle 401 Unauthorized responses, such as redirecting to a login page.                                                |
-| `initialState`     | `R | null` (optional)            | Initial state for the `response`. Useful for setting a default value.                                                                       |
+| `initialState`     | `R \| null` (optional)            | Initial state for the `response`. Useful for setting a default value.                                                                       |
 | `headers`          | `Record<string, string>` (optional) | Custom headers to include in the request, e.g., `{ "X-Custom-Header": "value" }`.                                                           |
-| `contentType`      | `"application/json" | "multipart/form-data" | "application/x-www-form-urlencoded"` | Content type of the request. Default is `application/json`.                                          |
+| `contentType`      | `"application/json" \| "multipart/form-data" \| "application/x-www-form-urlencoded"` | Content type of the request. Default is `application/json`.                                          |
 | `axiosOptions`     | `AxiosRequestConfig` (optional)  | Additional Axios options, such as timeouts or custom response handling.                                                                     |
 | `cloudinaryUpload` | `CloudinaryUploadOptions` (optional) | Configuration for uploading files to Cloudinary.                                                                                            |
 | `getLatestData`    | `string` (optional)              | API route to fetch the latest data after a successful patch. Uses `phantomGet` internally to retrieve this data.                           |
@@ -494,31 +501,16 @@ Below are the parameters you can pass to `phantomPatch` and their descriptions:
 
 ---
 
----
-
 ### Return Parameters for `phantomPatch`
 
 | Parameter         | Type                         | Description                                                                                              |
 |-------------------|------------------------------|----------------------------------------------------------------------------------------------------------|
-| `response`        | `R | null`                    | The data returned from the API after a successful PATCH request. This contains the updated resource data. |
+| `response`        | `R \| null`                    | The data returned from the API after a successful PATCH request. This contains the updated resource data. |
+| `res`        | `R \| null`                    | The response returned from the API after a successful PATCH request. |
 | `error`           | `any`                         | The error object if the PATCH request fails. Can contain error message, status code, or other details.    |
 | `loading`         | `boolean`                     | Indicates whether the PATCH request is in progress. `true` when loading, `false` when the request is complete. |
 | `patch`           | `(data: any) => void`         | A function that you call to trigger the PATCH request with the specified `data`. It sends the data to the server to be updated. |
-| `latestData`      | `R | null`                    | Contains the most recent data fetched from the server (if `getLatestData` was provided and refetched). This value is updated after a successful PATCH request. |
-
----
-
-### Description of Each Return Parameter:
-
-- **`response`**: The response returned by the API after a successful PATCH request. This typically includes the updated resource, such as the driver details or media metadata, depending on your API. If the request is unsuccessful, this will be `null`.
-  
-- **`error`**: Any error that occurs during the PATCH request. This could be a network error, validation error from the API, or any other issue. If the request is successful, this value is `null`.
-
-- **`loading`**: A boolean indicating the current state of the PATCH request. When `true`, the request is in progress, and you may want to display a loading spinner or message. Once the request is finished (whether it’s successful or not), it will be set to `false`.
-
-- **`patch`**: This is a function that you call to initiate the PATCH request. You pass it the data that you want to update on the server. For example: `patch({ first_name: "phantom" })`.
-
-- **`latestData`**: If you provided a `getLatestData` option, this parameter will hold the most up-to-date data that has been fetched from the server after the PATCH request (if `refetch()` is called). It is particularly useful when you want to refresh data after a PATCH operation, ensuring you’re working with the latest resource state.
+| `latestData`      | `R \| null`                    | Contains the most recent data fetched from the server (if `getLatestData` was provided and refetched). This value is updated after a successful PATCH request. |
 
 ---
 
@@ -609,7 +601,7 @@ const App = () => {
 | `token`            | `string` (optional)              | Authorization token sent in `Authorization: Bearer <token>`.                |
 | `onUnauthorized`   | `() => void` (optional)          | Callback for 401 Unauthorized responses, e.g., redirecting to login.        |
 | `headers`          | `Record<string, string>` (optional) | Additional headers for the request.                                        |
-| `contentType`      | `"application/json" | "multipart/form-data"` | Content-Type of the request. Default is `application/json`.|
+| `contentType`      | `"application/json" \| "multipart/form-data" \| "application/x-www-form-urlencoded"` | Content-Type of the request. Default is `application/json`.|
 | `getLatestData`    | `string` (optional)              | Refetch the latest data from this route after a successful PUT.             |
 
 ---
@@ -618,11 +610,11 @@ const App = () => {
 
 | Parameter         | Type                  | Description                                                                 |
 |-------------------|-----------------------|-----------------------------------------------------------------------------|
-| `response`        | `R | null`           | Response from the PUT request, e.g., updated resource data.                |
+| `response`        | `R \| null`           | Response from the PUT request, e.g., updated resource data.                |
 | `error`           | `any`                | Error object if the PUT request fails.                                     |
 | `loading`         | `boolean`            | Indicates whether the PUT request is in progress.                          |
 | `put`             | `(data: any) => void` | Function to trigger the PUT request with the provided data.                |
-| `latestData`      | `R | null`           | Refreshed data fetched after a successful PUT request (if `getLatestData`).|
+| `latestData`      | `R \| null`           | Refreshed data fetched after a successful PUT request (if `getLatestData`).|
 
 
 ---
@@ -729,6 +721,7 @@ The hook returns the following properties:
 | `loading`        | `boolean`                          | Indicates if the request is in progress.                         |
 | `error`          | `any`                              | Error object from the request (if any).                          |
 | `response`       | `any`                              | Response data from the DELETE request.                           |
+| `res`       | `any`                              | Response from the DELETE request.                           |
 | `latestData`     | `any`                              | Data from the `getLatestData` route (if configured).             |
 
 ---
@@ -821,7 +814,256 @@ const App = () => {
   );
 };
 ```
+# phantom config
+# `phantom-request` Configuration Guide
 
+The `phantom-request` library allows you to configure global settings for your API requests in a centralized way. By setting up a `phantom.config.js` file or configuring directly in `main.jsx`, you can ensure that all your API calls are made with consistent settings while still providing flexibility for per-call overrides.
+
+## Installation
+
+Before setting up the configuration, make sure you have installed `phantom-request`:
+
+```bash
+npm install phantom-request
+```
+
+## Setup
+
+### Creating `phantom.config.js`
+
+You can create a file named `phantom.config.js` in your `config` directory (or wherever it fits your project structure). This file will hold your global configuration for all `phantomGet`, `phantomPost`, `phantomPut`, `phantomDelete`, and `phantomPatch` requests.
+
+Here’s an example of what the `phantom.config.js` might look like:
+
+```javascript
+// config/phantom.config.js
+import { setPhantomConfig } from "phantom-request";
+
+// Set global configuration for API requests
+setPhantomConfig({
+  baseURL: "http://localhost:3000/",
+  params: { page: 2, limit: 20 }, // Default parameters for all requests
+  getLatestData: "driver/", // Define default route for latest data
+});
+```
+
+You can also add any valid `phantom-request` parameters to this config file. These parameters will apply globally unless overridden in individual API calls.
+
+### Setting Up Config in `main.jsx`
+
+Alternatively, if you prefer, you can set up your configuration directly in your `main.jsx` (or equivalent entry point) file. This is especially useful if you want to keep everything in one place, or if you don't want a separate configuration file.
+
+Here’s how you can set it up directly in `main.jsx`:
+
+```javascript
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
+import { setPhantomConfig } from "phantom-request";
+
+// Set global configuration for API requests directly in main.jsx
+setPhantomConfig({
+  baseURL: "http://localhost:3000/",
+  params: { page: 2, limit: 20 }, // Default parameters for all requests
+  getLatestData: "driver/", // Define default route for latest data
+});
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+
+You can choose either method (a separate `phantom.config.js` file or setting it up directly in `main.jsx`) depending on your project's needs.
+
+### Importing Global Config
+
+If you choose the `phantom.config.js` method, you’ll need to import it into your `main.jsx` (or equivalent entry point) to ensure the configuration is applied globally.
+
+Here’s how you can import the `phantom.config.js` in `main.jsx`:
+
+```javascript
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
+import "./config/phantom.config.js";  // Import global config
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+
+By importing `phantom.config.js`, you ensure that all your requests made using `phantomGet`, `phantomPost`, `phantomPut`, `phantomDelete`, or `phantomPatch` will use the global configuration settings.
+
+## Usage
+
+Once the global configuration is set, you can make API calls using `phantomGet`, `phantomPost`, `phantomPut`, `phantomDelete`, and `phantomPatch`. Here are some examples:
+
+### Example of `phantomPost`
+
+```javascript
+import { phantomPost } from "phantom-request";
+
+const App = () => {
+  const { response, error, loading, post, latestData } = phantomPost({
+    route: "driver/create", // Route for this specific POST request
+  });
+
+  const handleSubmit = () => {
+    post({ fullName: "Fred", email: "phr@gmail.com" }); // Sending data on form submission
+  };
+
+  console.log(response);
+
+  return (
+    <div>
+      <button onClick={handleSubmit}>Submit</button>
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {latestData && <pre>{JSON.stringify(latestData, null, 2)}</pre>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+### Example of `phantomGet`
+
+```javascript
+import { phantomGet } from "phantom-request";
+
+// Basic usage with global config
+const { data: customersData, loading } = phantomGet({
+  route: "customers", // API endpoint for getting customers data
+});
+
+// Override global config for a specific call
+const { data: productsData } = phantomGet({
+  baseURL: "http://localhost:3001/", // Override base URL for this request
+  route: "products", // API endpoint for products
+  params: { limit: 10 }, // Override parameters
+  restHeader: { "X-Custom-Header": "CustomValue" }, // Custom headers
+});
+
+// Minimal setup (uses global config settings)
+const { data: ordersData } = phantomGet({
+  route: "orders", // API endpoint for orders
+});
+```
+
+### Supported Methods
+
+The configuration can be used across all `phantom-request` methods, including:
+
+- **`phantomPost`**: For sending data via POST requests.
+- **`phantomGet`**: For fetching data via GET requests.
+- **`phantomPut`**: For updating data via PUT requests.
+- **`phantomPatch`**: For partially updating data via PATCH requests.
+- **`phantomDelete`**: For deleting data via DELETE requests.
+
+These methods can all take advantage of the global configuration, and any specific method can be customized with its own parameters when necessary.
+
+### Example of `phantomPut`
+
+```javascript
+import { phantomPut } from "phantom-request";
+
+const App = () => {
+  const { response, error, loading, put, latestData } = phantomPut({
+    route: "driver/update", // Route for this specific PUT request
+    id: "1",
+  });
+
+  const handleUpdate = () => {
+    put({ fullName: "Fred", email: "newemail@gmail.com" }); // Sending updated data
+  };
+
+  return (
+    <div>
+      <button onClick={handleUpdate}>Update</button>
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {latestData && <pre>{JSON.stringify(latestData, null, 2)}</pre>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+### Example of `phantomDelete`
+
+```javascript
+import { phantomDelete } from "phantom-request";
+
+const App = () => {
+  const { response, error, loading, remove, latestData } = phantomDelete({
+    route: "driver/delete", // Route for this specific DELETE request
+    id: "1"
+  });
+
+  const handleDelete = () => {
+    remove(); // Perform delete action
+  };
+
+  return (
+    <div>
+      <button onClick={handleDelete}>Delete</button>
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {latestData && <pre>{JSON.stringify(latestData, null, 2)}</pre>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+### Example of `phantomPatch`
+
+```javascript
+import { phantomPatch } from "phantom-request";
+
+const App = () => {
+  const { response, error, loading, patch, latestData } = phantomPatch({
+    route: "driver/patch/1", // Route for this specific PATCH request
+    id: "1"
+  });
+
+  const handlePatch = () => {
+    patch({ fullName: "Fred", email: "updatedemail@gmail.com" }); // Sending patch data
+  };
+
+  return (
+    <div>
+      <button onClick={handlePatch}>Update</button>
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {latestData && <pre>{JSON.stringify(latestData, null, 2)}</pre>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+## API Reference
+
+### `setPhantomConfig`
+
+```typescript
+function setPhantomConfig(config: PhantomConfig): void;
+```
+
+Sets the global configuration that will be used by `phantomGet`, `phantomPost`, `phantomPut`, `phantomDelete`, and `phantomPatch`.
+
+#### Parameters: any valid phantom-request parameter will work in your config
 ## Contributing
 
 Feel free to contribute by opening issues or submitting pull requests! Improvements and new features are always welcome.
