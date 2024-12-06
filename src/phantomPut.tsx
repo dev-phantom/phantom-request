@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
 import { phantomGet } from "./phantomGet";
+import { getPhantomConfig } from "./config/phantomConfig";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -35,19 +36,27 @@ interface phantomPutResult<R> {
   latestData?: R | null;
 }
 
-export function phantomPut<R>({
-  baseURL,
-  route,
-  id, // Optional id
-  token,
-  onUnauthorized = () => {},
-  initialState = null,
-  headers = {},
-  contentType = "application/json",
-  axiosOptions = {},
-  cloudinaryUpload,
-  getLatestData,
-}: phantomPutOptions<R>): phantomPutResult<R> {
+export function phantomPut<R>(options: phantomPutOptions<R>): phantomPutResult<R> {
+  const globalConfig = getPhantomConfig();
+  const mergedOptions = {
+    ...globalConfig,
+    ...options, // Per-call overrides
+  };
+  
+  const {
+    baseURL,
+    route,
+    id, // Optional id
+    token,
+    onUnauthorized = () => {},
+    initialState = null,
+    headers = {},
+    contentType = "application/json",
+    axiosOptions = {},
+    cloudinaryUpload,
+    getLatestData,
+  } = mergedOptions;
+
   const [response, setResponse] = useState<R | null>(initialState);
   const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);

@@ -2,3 +2,4 @@ node_modules
 dist
 dist-ssr
 node_modules/
+phantom-request-test

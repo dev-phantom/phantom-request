@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
 import { phantomGet } from "./phantomGet";
+import { getPhantomConfig } from "./config/phantomConfig";
 
 interface CloudinaryUploadOptions {
   cloud_base_url: string;
@@ -34,18 +35,26 @@ interface phantomPostResult<R> {
   latestData?: R | null; // To store the fetched latest data
 }
 
-export function phantomPost<R>({
-  baseURL,
-  route,
-  token,
-  onUnauthorized = () => {},
-  initialState = null,
-  headers = {},
-  contentType = "application/json",
-  axiosOptions = {},
-  cloudinaryUpload,
-  getLatestData, // Destructure the new parameter
-}: phantomPostOptions<R>): phantomPostResult<R> {
+export function phantomPost<R>(options : phantomPostOptions<R>): phantomPostResult<R> {
+  const globalConfig = getPhantomConfig();
+  const mergedOptions = {
+    ...globalConfig,
+    ...options, // Per-call overrides
+  };
+
+  const {
+    baseURL,
+    route,
+    token,
+    onUnauthorized = () => {},
+    initialState = null,
+    headers = {},
+    contentType = "application/json",
+    axiosOptions = {},
+    cloudinaryUpload,
+    getLatestData, // Destructure the new parameter
+  } = mergedOptions;
+
   const [response, setResponse] = useState<R | null>(initialState);
   const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
@@ -107,6 +116,11 @@ export function phantomPost<R>({
   };
 
   const sendPostRequest = async (data: any) => {
+    if (!baseURL ) {
+      console.error("Base URL is required");
+      return;
+    }
+    
     const url = `${baseURL}${route}`;
     const headersConfig = prepareHeaders();
     setLoading(true);

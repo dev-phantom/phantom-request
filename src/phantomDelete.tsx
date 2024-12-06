@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { phantomGet } from "./phantomGet";
+import { getPhantomConfig } from "./config/phantomConfig";
 
 interface phantomDeleteOptions<R> {
   baseURL: string;
@@ -25,17 +26,24 @@ interface phantomDeleteResult<R> {
   }) => void;
   latestData?: R | null;
 }
-export function phantomDelete<R>({
-  baseURL,
-  route,
-  id, // Optional ID for dynamic routing
-  token,
-  onUnauthorized = () => {},
-  initialState = null,
-  headers = {},
-  axiosOptions = {},
-  getLatestData,
-}: phantomDeleteOptions<R>): phantomDeleteResult<R> {
+export function phantomDelete<R>(options: phantomDeleteOptions<R>): phantomDeleteResult<R> {
+  const globalConfig = getPhantomConfig();
+  const mergedOptions = {
+    ...globalConfig,
+    ...options, // Per-call overrides
+  };
+  const {
+    baseURL,
+    route,
+    id, 
+    token,
+    onUnauthorized = () => {},
+    initialState = null,
+    headers = {},
+    axiosOptions = {},
+    getLatestData,
+  } = mergedOptions;
+  
   const [response, setResponse] = useState<R | null>(initialState);
   const [res, setRes] = useState<R | null>(initialState);
   const [error, setError] = useState(null);
