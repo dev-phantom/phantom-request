@@ -142,15 +142,17 @@ export function phantomPost<R>(options : phantomPostOptions<R>): phantomPostResu
       return res.data;
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
+        setError(err);
         onUnauthorized();
       }else if (err.response.data && err.response.status === 401) {
-        setError(err.data);
+        setError(err);
         console.error(`Error posting data to ${route}:`, err.data);
       }
        else {
         setError(err);
         console.error(`Error posting data to ${route}:`, err);
       }
+      setError(err);
       throw err.response?.data || err; 
     } finally {
       setLoading(false);

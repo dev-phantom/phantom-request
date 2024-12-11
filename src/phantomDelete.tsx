@@ -102,6 +102,7 @@ export function phantomDelete<R>(options: phantomDeleteOptions<R>): phantomDelet
       }
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
+        setError(err);
         onUnauthorized();
       } else {
         setError(err);
