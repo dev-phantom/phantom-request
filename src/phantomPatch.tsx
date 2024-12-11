@@ -3,12 +3,7 @@ import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
 import { uploadToCloudinary } from "./lib/utils/uploadToCloudinary";
 import { phantomGet } from "./phantomGet";
 import { getPhantomConfig } from "./config/phantomConfig";
-
-interface CloudinaryUploadOptions {
-  cloud_base_url: string;
-  cloud_route?: string;
-  upload_preset: string;
-}
+import { CloudinaryUploadOptions } from "./lib/interface/cloudinaryUploadOptions";
 
 interface phantomPatchOptions<R> {
   baseURL?: string;
