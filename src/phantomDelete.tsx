@@ -4,8 +4,8 @@ import { phantomGet } from "./phantomGet";
 import { getPhantomConfig } from "./config/phantomConfig";
 
 interface phantomDeleteOptions<R> {
-  baseURL: string;
-  route: string;
+  baseURL?: string;
+  route?: string;
   id?: string; // Optional ID for dynamic routing
   token?: string;
   onUnauthorized?: () => void;

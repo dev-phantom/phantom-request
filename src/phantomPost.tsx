@@ -11,8 +11,8 @@ interface CloudinaryUploadOptions {
 }
 
 interface phantomPostOptions<R> {
-  baseURL: string;
-  route: string;
+  baseURL?: string;
+  route?: string;
   token?: string;
   onUnauthorized?: () => void;
   initialState?: R | null;
