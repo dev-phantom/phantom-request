@@ -98,11 +98,13 @@ export function phantomGet<T>(options: PhantomGetOptions<T>): PhantomGetResult<T
         })
         .catch((err) => {
           if (err.response && err.response.status === 401) {
+            setError(err);
             onUnauthorized?.();
           } else {
             setError(err);
             console.error(`Error fetching data from ${route}:`, err);
           }
+          setError(err);
         })
         .finally(() => {
           setLoading(false);

@@ -4,8 +4,8 @@ import { phantomGet } from "./phantomGet";
 import { getPhantomConfig } from "./config/phantomConfig";
 
 interface phantomDeleteOptions<R> {
-  baseURL: string;
-  route: string;
+  baseURL?: string;
+  route?: string;
   id?: string; // Optional ID for dynamic routing
   token?: string;
   onUnauthorized?: () => void;
@@ -102,6 +102,7 @@ export function phantomDelete<R>(options: phantomDeleteOptions<R>): phantomDelet
       }
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
+        setError(err);
         onUnauthorized();
       } else {
         setError(err);

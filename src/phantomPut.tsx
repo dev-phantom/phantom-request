@@ -11,8 +11,8 @@ interface CloudinaryUploadOptions {
 }
 
 interface phantomPutOptions<R> {
-  baseURL: string;
-  route: string;
+  baseURL?: string;
+  route?: string;
   id?: string; // Optional id parameter
   token?: string;
   onUnauthorized?: () => void;
@@ -137,11 +137,13 @@ export function phantomPut<R>(options: phantomPutOptions<R>): phantomPutResult<R
       }
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
+        setError(err);
         onUnauthorized();
       } else {
         setError(err);
         console.error(`Error putting data to ${route}:`, err);
       }
+      setError(err);
     } finally {
       setLoading(false);
     }

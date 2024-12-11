@@ -11,8 +11,8 @@ interface CloudinaryUploadOptions {
 }
 
 interface phantomPatchOptions<R> {
-  baseURL: string;
-  route: string;
+  baseURL?: string;
+  route?: string;
   id?: string; // Optional id parameter
   token?: string;
   onUnauthorized?: () => void;
@@ -138,11 +138,13 @@ export function phantomPatch<R>(options: phantomPatchOptions<R>): phantomPatchRe
       return res.data;
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
+        setError(err);
         onUnauthorized();
       } else {
         setError(err);
         console.error(`Error patching data to ${route}:`, err);
       }
+      setError(err);
       throw err.response?.data || err; 
     } finally {
       setLoading(false);

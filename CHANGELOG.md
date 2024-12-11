@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/dev-phantom/phantom-request/compare/v1.5.1...v1.5.2) (2024-12-11)
+
+
+### Bug Fixes
+
+* made baseurl and route optional because of the phantom config ([cefff2c](https://github.com/dev-phantom/phantom-request/commit/cefff2c13304f6e96e6cfc076b9733c40d2885fe))
+
+### [1.5.1](https://github.com/dev-phantom/phantom-request/compare/v1.5.0...v1.5.1) (2024-12-11)
+
+
+### Bug Fixes
+
+* fixed the error ([a28ab06](https://github.com/dev-phantom/phantom-request/commit/a28ab06beece8a9617d64a123849283d297cfe53))
+
 ## [1.5.0](https://github.com/dev-phantom/phantom-request/compare/v1.4.1...v1.5.0) (2024-12-06)
 
 
