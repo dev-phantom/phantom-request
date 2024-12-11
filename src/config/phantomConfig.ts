@@ -2,6 +2,7 @@ interface PhantomConfig {
   baseURL?: string;
   token?: string;
   onUnauthorized?: () => void;
+  [key: string]: any;
 }
 
 const phantomConfig: PhantomConfig = {};
